@@ -12,10 +12,10 @@ void runShuffleProcess(const std::wstring& original) {
 
     do {
         std::shuffle(current.begin(), current.end(), g);
-        // Вывод широкой строки
+        // Г‚Г»ГўГ®Г¤ ГёГЁГ°Г®ГЄГ®Г© Г±ГІГ°Г®ГЄГЁ
         std::wcout << current << std::endl;
         attempts++;
     } while (current != original);
 
-    std::wcout << L"Попыток: " << attempts << std::endl;
+    std::wcout << L"ГЏГ®ГЇГ»ГІГ®ГЄ: " << attempts << std::endl;
 }

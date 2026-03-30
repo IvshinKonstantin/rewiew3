@@ -1,5 +1,5 @@
 #pragma once
 #include <string>
 
-// Используем wstring для поддержки кириллицы
+// Г€Г±ГЇГ®Г«ГјГ§ГіГҐГ¬ wstring Г¤Г«Гї ГЇГ®Г¤Г¤ГҐГ°Г¦ГЄГЁ ГЄГЁГ°ГЁГ«Г«ГЁГ¶Г»
 void runShuffleProcess(const std::wstring& word);

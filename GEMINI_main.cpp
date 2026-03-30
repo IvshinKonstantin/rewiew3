@@ -5,12 +5,12 @@
 #include "functions.h"
 
 int main() {
-    // Настройка консоли для вывода UTF-16 (лучший способ для Windows/Visual Studio)
+    // ГЌГ Г±ГІГ°Г®Г©ГЄГ  ГЄГ®Г­Г±Г®Г«ГЁ Г¤Г«Гї ГўГ»ГўГ®Г¤Г  UTF-16 (Г«ГіГ·ГёГЁГ© Г±ГЇГ®Г±Г®ГЎ Г¤Г«Гї Windows/Visual Studio)
     _setmode(_fileno(stdout), _O_U16TEXT);
     _setmode(_fileno(stdin), _O_U16TEXT);
 
     std::wstring inputWord;
-    std::wcout << L"Введите слово: ";
+    std::wcout << L"Г‚ГўГҐГ¤ГЁГІГҐ Г±Г«Г®ГўГ®: ";
     std::wcin >> inputWord;
 
     runShuffleProcess(inputWord);

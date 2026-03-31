@@ -1,6 +1,9 @@
-#pragma once
-#include <string>
-#include <vector>
+#ifndef FUNCTIONS_H_
+#define FUNCTIONS_H_
 
-// Функция для поиска городов по условию задачи
-void findTargetCities(const std::string& fileName, int K, int L);
+#include <string>
+
+// РС‰РµС‚ РіРѕСЂРѕРґР°, РґРѕ РєРѕС‚РѕСЂС‹С… РѕС‚ РіРѕСЂРѕРґР° k РЅСѓР¶РЅРѕ СЃРґРµР»Р°С‚СЊ РЅРµ РјРµРЅРµРµ l РїРµСЂРµСЃР°РґРѕРє.
+void find_target_cities(const std::string& file_name, int k, int l);
+
+#endif  // FUNCTIONS_H_

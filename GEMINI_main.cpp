@@ -1,19 +1,22 @@
-#include <iostream>
-#include <string>
-#include <io.h>
-#include <fcntl.h>
 #include "functions.h"
 
-int main() {
-    // Íàñòðîéêà êîíñîëè äëÿ âûâîäà UTF-16 (ëó÷øèé ñïîñîá äëÿ Windows/Visual Studio)
-    _setmode(_fileno(stdout), _O_U16TEXT);
-    _setmode(_fileno(stdin), _O_U16TEXT);
+#include <algorithm>
+#include <iostream>
+#include <random>
+#include <string>
 
-    std::wstring inputWord;
-    std::wcout << L"Ââåäèòå ñëîâî: ";
-    std::wcin >> inputWord;
+void run_shuffle_process(const std::wstring& original) {
+  std::wstring current = original;
+  int attempts = 0;
 
-    runShuffleProcess(inputWord);
+  std::random_device rd;
+  std::mt19937 g(rd());
 
-    return 0;
+  do {
+    std::shuffle(current.begin(), current.end(), g);
+    std::wcout << current << std::endl;
+    attempts++;
+  } while (current != original);
+
+  std::wcout << L"Попыток: " << attempts << std::endl;
 }

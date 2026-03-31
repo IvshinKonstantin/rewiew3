@@ -1,31 +1,31 @@
 #include <iostream>
+#include <memory>
+#include <string>
+
 #include "functions.h"
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    std::string filename = "input.txt";
+    const std::string kFilename = "input.txt";
 
-    // 1. Строим дерево
-    Node* root = buildTreeFromFile(filename);
+    // 1. РЎС‚СЂРѕРёРј РґРµСЂРµРІРѕ.
+    std::unique_ptr<Node> root = build_tree_from_file(kFilename);
     if (!root) {
-        std::cerr << "Ошибка: не удалось прочитать файл или файл пуст." << std::endl;
+        std::cerr << "РћС€РёР±РєР°: С„Р°Р№Р» РЅРµ РЅР°Р№РґРµРЅ РёР»Рё РїСѓСЃС‚." << std::endl;
         return 1;
     }
 
-    std::cout << "--- Исходное дерево ---" << std::endl;
-    printTree(root);
+    std::cout << "--- РСЃС…РѕРґРЅРѕРµ РґРµСЂРµРІРѕ ---" << std::endl;
+    print_tree(root.get());
 
-    // 2. Трансформируем (удаляем умножение)
-    root = transformTree(root);
+    // 2. РўСЂР°РЅСЃС„РѕСЂРјРёСЂСѓРµРј (СЃРІРѕСЂР°С‡РёРІР°РµРј СѓРјРЅРѕР¶РµРЅРёРµ).
+    root = transform_tree(std::move(root));
 
-    std::cout << "\n--- Трансформированное дерево (без умножения) ---" << std::endl;
-    printTree(root);
+    std::cout << "\n--- РўСЂР°РЅСЃС„РѕСЂРјРёСЂРѕРІР°РЅРЅРѕРµ РґРµСЂРµРІРѕ ---" << std::endl;
+    print_tree(root.get());
 
-    // 3. Выводим указатель на корень, как просит задача
-    std::cout << "\nУказатель на корень: " << root << std::endl;
-
-    // Очистка памяти
-    deleteTree(root);
+    // 3. Р’С‹РІРѕРґ Р°РґСЂРµСЃР° РєРѕСЂРЅСЏ.
+    std::cout << "\nРЈРєР°Р·Р°С‚РµР»СЊ РЅР° РєРѕСЂРµРЅСЊ: " << root.get() << std::endl;
 
     return 0;
 }

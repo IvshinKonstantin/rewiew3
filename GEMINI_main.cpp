@@ -1,21 +1,22 @@
 #include <iostream>
 #include <string>
+
 #include "functions.h"
 
 int main() {
-    setlocale(LC_ALL, "Russian");
+  setlocale(LC_ALL, "Russian");
 
-    std::string fileName;
-    int K, L;
+  std::string file_name;
+  int k, l;
 
-    std::cout << "Ââåäèòå èìÿ ôàéëà: ";
-    std::cin >> fileName;
-    std::cout << "Ââåäèòå íîìåð íà÷àëüíîãî ãîðîäà K: ";
-    std::cin >> K;
-    std::cout << "Ââåäèòå ìèíèìàëüíîå êîëè÷åñòâî ïåðåñàäîê L: ";
-    std::cin >> L;
+  std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð¼Ñ Ñ„Ð°Ð¹Ð»Ð°: ";
+  std::cin >> file_name;
+  std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð¾Ð¼ÐµÑ€ Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ð¾Ð³Ð¾ Ð³Ð¾Ñ€Ð¾Ð´Ð° K: ";
+  std::cin >> k;
+  std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¼Ð¸Ð½Ð¸Ð¼Ð°Ð»ÑŒÐ½Ð¾Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð¿ÐµÑ€ÐµÑÐ°Ð´Ð¾Ðº L: ";
+  std::cin >> l;
 
-    findTargetCities(fileName, K, L);
+  find_target_cities(file_name, k, l);
 
-    return 0;
+  return 0;
 }

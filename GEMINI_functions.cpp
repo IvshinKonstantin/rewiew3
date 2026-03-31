@@ -1,70 +1,69 @@
 #include "functions.h"
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <queue>
+
 #include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <queue>
+#include <vector>
 
-void findTargetCities(const std::string& fileName, int K, int L) {
-    std::ifstream file(fileName);
-    if (!file.is_open()) {
-        std::cout << "Ошибка: файл не найден!" << std::endl;
-        return;
+void find_target_cities(const std::string& file_name, int k, int l) {
+  std::ifstream file(file_name);
+  if (!file.is_open()) {
+    std::cerr << "РћС€РёР±РєР°: С„Р°Р№Р» РЅРµ РЅР°Р№РґРµРЅ!" << std::endl;
+    return;
+  }
+
+  int n;
+  if (!(file >> n)) return;
+
+  // РЎС‡РёС‚С‹РІР°РµРј РјР°С‚СЂРёС†Сѓ СЃРјРµР¶РЅРѕСЃС‚Рё.
+  std::vector<std::vector<int>> adj(n, std::vector<int>(n));
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      file >> adj[i][j];
     }
+  }
+  file.close();
 
-    int n;
-    file >> n;
+  // BFS РґР»СЏ РїРѕРёСЃРєР° РєСЂР°С‚С‡Р°Р№С€РёС… РїСѓС‚РµР№. -1 РѕР·РЅР°С‡Р°РµС‚, С‡С‚Рѕ РіРѕСЂРѕРґ РЅРµ РїРѕСЃРµС‰РµРЅ.
+  std::vector<int> dist(n, -1);
+  std::queue<int> q;
 
-    // Считываем матрицу смежности
-    std::vector<std::vector<int>> adj(n, std::vector<int>(n));
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            file >> adj[i][j];
-        }
+  // Р“РѕСЂРѕРґР° РІ Р·Р°РґР°С‡Рµ РЅСѓРјРµСЂСѓСЋС‚СЃСЏ СЃ 1.
+  int start_node = k - 1;
+  if (start_node < 0 || start_node >= n) return;
+
+  dist[start_node] = 0;
+  q.push(start_node);
+
+  while (!q.empty()) {
+    int u = q.front();
+    q.pop();
+
+    for (int v = 0; v < n; ++v) {
+      if (adj[u][v] == 1 && dist[v] == -1) {
+        dist[v] = dist[u] + 1;
+        q.push(v);
+      }
     }
-    file.close();
+  }
 
-    // Алгоритм BFS для поиска кратчайших путей от города K
-    // Дистанция -1 означает, что город еще не посещен
-    std::vector<int> dist(n, -1);
-    std::queue<int> q;
-
-    // Города нумеруются с 1, поэтому вычитаем 1 для индекса вектора
-    int startNode = K - 1;
-    dist[startNode] = 0;
-    q.push(startNode);
-
-    while (!q.empty()) {
-        int u = q.front();
-        q.pop();
-
-        for (int v = 0; v < n; ++v) {
-            if (adj[u][v] == 1 && dist[v] == -1) {
-                dist[v] = dist[u] + 1;
-                q.push(v);
-            }
-        }
+  // РЎРѕР±РёСЂР°РµРј РіРѕСЂРѕРґР°, РіРґРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРµСЂРµСЃР°РґРѕРє (РґРёСЃС‚Р°РЅС†РёСЏ - 1) >= l.
+  std::vector<int> result;
+  for (int i = 0; i < n; ++i) {
+    if (dist[i] > 0 && (dist[i] - 1) >= l) {
+      result.push_back(i + 1);
     }
+  }
 
-    // Собираем города, до которых кратчайший путь >= L + 1 (т.е. пересадок >= L)
-    std::vector<int> result;
-    for (int i = 0; i < n; ++i) {
-        // Условие: путь существует (dist != -1), это не сам город K (dist > 0),
-        // и количество пересадок (dist-1) >= L
-        if (dist[i] != -1 && dist[i] > 0 && (dist[i] - 1) >= L) {
-            result.push_back(i + 1); // Возвращаем к нумерации с 1
-        }
+  // Р’С‹РІРѕРґ СЂРµР·СѓР»СЊС‚Р°С‚Р°.
+  if (result.empty()) {
+    std::cout << -1 << std::endl;
+  } else {
+    std::sort(result.begin(), result.end());
+    for (size_t i = 0; i < result.size(); ++i) {
+      std::cout << result[i] << (i == result.size() - 1 ? "" : " ");
     }
-
-    // Вывод результата
-    if (result.empty()) {
-        std::cout << -1 << std::endl;
-    }
-    else {
-        std::sort(result.begin(), result.end());
-        for (size_t i = 0; i < result.size(); ++i) {
-            std::cout << result[i] << (i == result.size() - 1 ? "" : " ");
-        }
-        std::cout << std::endl;
-    }
+    std::cout << std::endl;
+  }
 }

@@ -1,27 +1,28 @@
-#pragma once
-#pragma once
+#ifndef FUNCTIONS_H_
+#define FUNCTIONS_H_
+
+#include <memory>
 #include <string>
 
-// Структура узла дерева
+// РЎС‚СЂСѓРєС‚СѓСЂР° СѓР·Р»Р° РґРµСЂРµРІР°.
 struct Node {
-    int value; // Число (0-9) или код операции (-1...-5)
-    Node* left;
-    Node* right;
+	int value;  // Р§РёСЃР»Рѕ (0-9) РёР»Рё РєРѕРґ РѕРїРµСЂР°С†РёРё (-1...-5).
+	std::unique_ptr<Node> left;
+	std::unique_ptr<Node> right;
 
-    Node(int val) : value(val), left(nullptr), right(nullptr) {}
+	explicit Node(int val) : value(val), left(nullptr), right(nullptr) {}
 };
 
-// Функция для построения дерева из файла (ОПЗ)
-Node* buildTreeFromFile(const std::string& filename);
+// РЎС‚СЂРѕРёС‚ РґРµСЂРµРІРѕ РёР· С„Р°Р№Р»Р° (РѕР±СЂР°С‚РЅР°СЏ РїРѕР»СЊСЃРєР°СЏ Р·Р°РїРёСЃСЊ).
+std::unique_ptr<Node> build_tree_from_file(const std::string& filename);
 
-// Функция для вычисления значения поддерева (нужна для трансформации)
+// Р’С‹С‡РёСЃР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ РїРѕРґРґРµСЂРµРІР°.
 int calculate(Node* root);
 
-// Функция для трансформации дерева (удаление умножения)
-Node* transformTree(Node* root);
+// РўСЂР°РЅСЃС„РѕСЂРјРёСЂСѓРµС‚ РґРµСЂРµРІРѕ (СѓРґР°Р»СЏРµС‚ РѕРїРµСЂР°С†РёРё СѓРјРЅРѕР¶РµРЅРёСЏ, Р·Р°РјРµРЅСЏСЏ РёС… СЂРµР·СѓР»СЊС‚Р°С‚РѕРј).
+std::unique_ptr<Node> transform_tree(std::unique_ptr<Node> root);
 
-// Функция для очистки памяти
-void deleteTree(Node* root);
+// Р’С‹РІРѕРґРёС‚ РґРµСЂРµРІРѕ РІ РєРѕРЅСЃРѕР»СЊ (РїРѕРІРµСЂРЅСѓС‚Рѕ РЅР° 90 РіСЂР°РґСѓСЃРѕРІ).
+void print_tree(Node* root, int indent = 0);
 
-// Вспомогательная функция для вывода дерева (для проверки)
-void printTree(Node* root, int indent = 0);
+#endif  // FUNCTIONS_H_
